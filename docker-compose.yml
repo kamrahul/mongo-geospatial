@@ -1,0 +1,28 @@
+version: '2.0'
+networks:
+    my-network:
+        external: true
+
+services:
+    api:
+        container_name: flask_mqtt_service
+        build: .
+        networks:
+            - my-network
+        ports:
+            - "9001:5000"
+        environment:
+            - DEVICE_NAME=kin123
+  
+
+    mongo:
+        image: mongo
+        container_name: mongo_db
+        restart: always
+        networks:
+            - my-network
+        ports:
+            - "27017:27017"
+        # environment:
+        #     MONGO_INITDB_ROOT_USERNAME: root
+        #     MONGO_INITDB_ROOT_PASSWORD: example
